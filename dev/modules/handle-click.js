@@ -1,7 +1,6 @@
 import { colorLuminance } from './utils';
-import { getModal } from './handle-swal-dom';
+import { getModal } from './handle-swmd-dom';
 import { hasClass, isDescendant } from './handle-dom';
-
 
 /*
  * User clicked on "Confirm"/"OK" or "Cancel"
@@ -12,7 +11,6 @@ var handleButton = function(event, params, modal) {
 
   var targetedConfirm = target.className.indexOf('confirm') !== -1;
   var targetedOverlay = target.className.indexOf('sweet-overlay') !== -1;
-  var modalIsVisible  = hasClass(modal, 'visible');
   var doneFunctionExists = (params.doneFunction && modal.getAttribute('data-has-done-function') === 'true');
 
   // Since the user can change the background-color of the confirm button programmatically,
@@ -63,16 +61,16 @@ var handleButton = function(event, params, modal) {
       let clickedOnModalChild = isDescendant(modal, target);
 
       // Ignore click outside if allowOutsideClick is false
-      if (!clickedOnModal && !clickedOnModalChild && modalIsVisible && !params.allowOutsideClick) {
+      if (!clickedOnModal && !clickedOnModalChild && !params.allowOutsideClick) {
         break;
       }
 
-      if (targetedConfirm && doneFunctionExists && modalIsVisible) {
+      if (targetedConfirm && doneFunctionExists) {
         handleConfirm(modal, params);
-      } else if (doneFunctionExists && modalIsVisible || targetedOverlay) {
+      } else if (doneFunctionExists || targetedOverlay) {
         handleCancel(modal, params);
       } else if (isDescendant(modal, target) && target.tagName === 'BUTTON') {
-        sweetAlert.close();
+        sweetModal.close();
       }
       break;
   }
@@ -84,22 +82,14 @@ var handleButton = function(event, params, modal) {
 var handleConfirm = function(modal, params) {
   var callbackValue = true;
 
-  if (hasClass(modal, 'show-input')) {
-    callbackValue = modal.querySelector('input').value;
-
-    if (!callbackValue) {
-      callbackValue = '';
-    }
-  }
-
   params.doneFunction(callbackValue);
 
   if (params.closeOnConfirm) {
-    sweetAlert.close();
+    sweetModal.close();
   }
   // Disable cancel and confirm button if the parameter is true
   if (params.showLoaderOnConfirm) {
-    sweetAlert.disableButtons();
+    sweetModal.disableButtons();
   }
 };
 
@@ -116,10 +106,9 @@ var handleCancel = function(modal, params) {
   }
 
   if (params.closeOnCancel) {
-    sweetAlert.close();
+    sweetModal.close();
   }
 };
-
 
 export default {
   handleButton,

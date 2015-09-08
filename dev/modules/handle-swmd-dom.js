@@ -2,7 +2,7 @@ import { hexToRgb } from './utils';
 import { removeClass, getTopMargin, fadeIn, show, addClass } from './handle-dom';
 import defaultParams from './default-params';
 
-var modalClass   = '.sweet-alert';
+var modalClass   = '.sweet-modal';
 var overlayClass = '.sweet-overlay';
 
 /*
@@ -10,7 +10,7 @@ var overlayClass = '.sweet-overlay';
  */
 import injectedHTML from './injected-html';
 
-var sweetAlertInitialize = function() {
+var sweetModalInitialize = function() {
   var sweetWrap = document.createElement('div');
   sweetWrap.innerHTML = injectedHTML;
 
@@ -27,7 +27,7 @@ var getModal = function() {
   var $modal = document.querySelector(modalClass);
 
   if (!$modal) {
-    sweetAlertInitialize();
+    sweetModalInitialize();
     $modal = getModal();
   }
 
@@ -66,16 +66,10 @@ var openModal = function(callback) {
   var $modal = getModal();
   fadeIn(getOverlay(), 10);
   show($modal);
-  addClass($modal, 'showSweetAlert');
-  removeClass($modal, 'hideSweetAlert');
+  addClass($modal, 'showSweetModal');
+  removeClass($modal, 'hideSweetModal');
 
   window.previousActiveElement = document.activeElement;
-  var $okButton = $modal.querySelector('button.confirm');
-  $okButton.focus();
-
-  setTimeout(function () {
-    addClass($modal, 'visible');
-  }, 500);
 
   var timer = $modal.getAttribute('data-timer');
 
@@ -83,11 +77,11 @@ var openModal = function(callback) {
     var timerCallback = callback;
     $modal.timeout = setTimeout(function() {
       var doneFunctionExists = ((timerCallback || null) && $modal.getAttribute('data-has-done-function') === 'true');
-      if (doneFunctionExists) { 
+      if (doneFunctionExists) {
         timerCallback(null);
       }
       else {
-        sweetAlert.close();
+        sweetModal.close();
       }
     }, timer);
   }
@@ -98,17 +92,8 @@ var openModal = function(callback) {
  * (for example if errors have been shown)
  */
 var resetInput = function() {
-  var $modal = getModal();
-  var $input = getInput();
-
-  removeClass($modal, 'show-input');
-  $input.value = defaultParams.inputValue;
-  $input.setAttribute('type', defaultParams.inputType);
-  $input.setAttribute('placeholder', defaultParams.inputPlaceholder);
-
   resetInputError();
 };
-
 
 var resetInputError = function(event) {
   // If press enter => ignore
@@ -118,10 +103,7 @@ var resetInputError = function(event) {
 
   var $modal = getModal();
 
-  var $errorIcon = $modal.querySelector('.sa-input-error');
-  removeClass($errorIcon, 'show');
-
-  var $errorContainer = $modal.querySelector('.sa-error-container');
+  var $errorContainer = $modal.querySelector('.sm-error-container');
   removeClass($errorContainer, 'show');
 };
 
@@ -131,12 +113,12 @@ var resetInputError = function(event) {
  */
 var fixVerticalPosition = function() {
   var $modal = getModal();
-  $modal.style.marginTop = getTopMargin(getModal());
+  $modal.style.marginTop = getTopMargin($modal);
 };
 
 
-export { 
-  sweetAlertInitialize,
+export {
+  sweetModalInitialize,
   getModal,
   getOverlay,
   getInput,

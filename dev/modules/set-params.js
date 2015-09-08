@@ -1,4 +1,5 @@
 var alertTypes = ['error', 'warning', 'info', 'success', 'input', 'prompt'];
+var alertSizes = ['small', 'medium', 'large'];
 
 import {
   isIE8
@@ -8,7 +9,7 @@ import {
   getModal,
   getInput,
   setFocusStyle
-} from './handle-swal-dom';
+} from './handle-swmd-dom';
 
 import {
   hasClass, addClass, removeClass,
@@ -22,9 +23,7 @@ import {
  */
 var setParameters = function(params) {
   var modal = getModal();
-
   var $title = modal.querySelector('h2');
-  var $text = modal.querySelector('p');
   var $cancelBtn = modal.querySelector('button.cancel');
   var $confirmBtn = modal.querySelector('button.confirm');
 
@@ -34,115 +33,45 @@ var setParameters = function(params) {
   $title.innerHTML = params.html ? params.title : escapeHtml(params.title).split('\n').join('<br>');
 
   /*
-   * Text
-   */
-  $text.innerHTML = params.html ? params.text : escapeHtml(params.text || '').split('\n').join('<br>');
-  if (params.text) show($text);
-
-  /*
    * Custom class
    */
   if (params.customClass) {
     addClass(modal, params.customClass);
     modal.setAttribute('data-custom-class', params.customClass);
-  } else {
-    // Find previously set classes and remove them
-    let customClass = modal.getAttribute('data-custom-class');
-    removeClass(modal, customClass);
-    modal.setAttribute('data-custom-class', '');
   }
 
   /*
-   * Icon
+   * Modal Size
    */
-  hide(modal.querySelectorAll('.sa-icon'));
+  if (params.size) {
+    let validSize = false;
 
-  if (params.type && !isIE8()) {
-
-    let validType = false;
-
-    for (let i = 0; i < alertTypes.length; i++) {
-      if (params.type === alertTypes[i]) {
-        validType = true;
+    for (let i = 0; i < alertSizes.length; i++) {
+      if (params.size === alertSizes[i]) {
+        validSize = true;
         break;
       }
     }
 
-    if (!validType) {
-      logStr('Unknown alert type: ' + params.type);
+    if (!validSize) {
+      logStr('Unknown alert size: ' + params.size);
       return false;
     }
 
-    let typesWithIcons = ['success', 'error', 'warning', 'info'];
-    let $icon;
-
-    if (typesWithIcons.indexOf(params.type) !== -1) {
-      $icon = modal.querySelector('.sa-icon.' + 'sa-' + params.type);
-      show($icon);
-    }
-
-    let $input = getInput();
-
-    // Animate icon
-    switch (params.type) {
-
-      case 'success':
-        addClass($icon, 'animate');
-        addClass($icon.querySelector('.sa-tip'), 'animateSuccessTip');
-        addClass($icon.querySelector('.sa-long'), 'animateSuccessLong');
+    // Set modal dimensions
+    switch (params.size) {
+      case 'small':
+        addClass(modal, 'small');
         break;
 
-      case 'error':
-        addClass($icon, 'animateErrorIcon');
-        addClass($icon.querySelector('.sa-x-mark'), 'animateXMark');
+      case 'medium':
+        addClass(modal, 'medium');
         break;
 
-      case 'warning':
-        addClass($icon, 'pulseWarning');
-        addClass($icon.querySelector('.sa-body'), 'pulseWarningIns');
-        addClass($icon.querySelector('.sa-dot'), 'pulseWarningIns');
-        break;
-
-      case 'input':
-      case 'prompt':
-        $input.setAttribute('type', params.inputType);
-        $input.value = params.inputValue;
-        $input.setAttribute('placeholder', params.inputPlaceholder);
-        addClass(modal, 'show-input');
-        setTimeout(function () {
-          $input.focus();
-          $input.addEventListener('keyup', swal.resetInputError);
-        }, 400);
+      case 'large':
+        addClass(modal, 'large');
         break;
     }
-  }
-
-  /*
-   * Custom image
-   */
-  if (params.imageUrl) {
-    let $customIcon = modal.querySelector('.sa-icon.sa-custom');
-
-    $customIcon.style.backgroundImage = 'url(' + params.imageUrl + ')';
-    show($customIcon);
-
-    let _imgWidth = 80;
-    let _imgHeight = 80;
-
-    if (params.imageSize) {
-      let dimensions = params.imageSize.toString().split('x');
-      let imgWidth = dimensions[0];
-      let imgHeight = dimensions[1];
-
-      if (!imgWidth || !imgHeight) {
-        logStr('Parameter imageSize expects value with format WIDTHxHEIGHT, got ' + params.imageSize);
-      } else {
-        _imgWidth = imgWidth;
-        _imgHeight = imgHeight;
-      }
-    }
-
-    $customIcon.setAttribute('style', $customIcon.getAttribute('style') + 'width:' + _imgWidth + 'px; height:' + _imgHeight + 'px');
   }
 
   /*
@@ -183,7 +112,7 @@ var setParameters = function(params) {
     $confirmBtn.style.backgroundColor = params.confirmButtonColor;
 
     // Set the confirm button color to the loading ring
-    $confirmBtn.style.borderLeftColor = params.confirmLoadingButtonColor;
+    $confirmBtn.style.borderLeftColor  = params.confirmLoadingButtonColor;
     $confirmBtn.style.borderRightColor = params.confirmLoadingButtonColor;
 
     // Set box-shadow to default focused button

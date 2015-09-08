@@ -1,18 +1,18 @@
 ;(function(window, document, undefined) {
   "use strict";
-  
+
   <%= contents %>
-  
+
   /*
    * Use SweetAlert with RequireJS
    */
-  
+
   if (typeof define === 'function' && define.amd) {
     define(function () {
-      return sweetAlert;
+      return sweetModal;
     });
   } else if (typeof module !== 'undefined' && module.exports) {
-    module.exports = sweetAlert;
+    module.exports = sweetModal;
   }
 
 })(window, document);

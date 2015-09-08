@@ -52,6 +52,19 @@ var hide = function(elems) {
   }
 };
 
+var _remove = function(elem) {
+  elem.parentNode.removeChild(elem);
+};
+
+var remove = function(elems) {
+  if (elems && !elems.length) {
+    return _remove(elems);
+  }
+  for (var i = 0; i < elems.length; ++i) {
+    _remove(elems[i]);
+  }
+};
+
 var isDescendant = function(parent, child) {
   var node = child.parentNode;
   while (node !== null) {
@@ -149,11 +162,11 @@ var stopEventPropagation = function(e) {
   }
 };
 
-export { 
-  hasClass, addClass, removeClass, 
-  escapeHtml, 
-  _show, show, _hide, hide, 
-  isDescendant, 
+export {
+  hasClass, addClass, removeClass,
+  escapeHtml,
+  _show, show, _hide, hide, _remove, remove,
+  isDescendant,
   getTopMargin,
   fadeIn, fadeOut,
   fireClick,

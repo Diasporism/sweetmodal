@@ -1,9 +1,8 @@
 var defaultParams = {
+  size: 'small',
   title: '',
-  text: '',
-  type: null,
-  allowOutsideClick: false,
-  showConfirmButton: true,
+  allowOutsideClick: true,
+  showConfirmButton: false,
   showCancelButton: false,
   closeOnConfirm: true,
   closeOnCancel: true,
@@ -17,9 +16,6 @@ var defaultParams = {
   html: false,
   animation: true,
   allowEscapeKey: true,
-  inputType: 'text',
-  inputPlaceholder: '',
-  inputValue: '',
   showLoaderOnConfirm: false
 };
 

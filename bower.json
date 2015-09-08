@@ -1,21 +1,21 @@
 {
-  "name": "sweetalert",
-  "homepage": "http://tristanedwards.me/sweetalert",
+  "name": "sweetmodal",
+  "homepage": "http://github.com/diasporism/sweetmodal",
   "authors": [
-    "Tristan Edwards <tristan.edwards@me.com> (http://tristanedwards.me)"
+    "Logan Sears <lsears322@gmail.com> (http://github.com/diasporism)"
   ],
-  "description": "A beautiful replacement for JavaScript's alert.",
+  "description": "A framework for Javascript modals based on Tristan Edward's SweetAlert",
   "main": [
-    "dist/sweetalert.min.js",
-    "dist/sweetalert.css"
+    "dist/sweetmodal.min.js",
+    "dist/sweetmodal.css"
   ],
   "keywords": [
-    "alert",
+    "sweet",
     "modal"
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:t4t5/sweetalert.git"
+    "url": "git@github.com:diasporism/sweetmodal.git"
   },
   "license": "MIT",
   "devDependencies": {

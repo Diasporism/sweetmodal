@@ -2,7 +2,6 @@
 // 2014-2015 (c) - Tristan Edwards
 // github.com/t4t5/sweetalert
 
-
 body.stop-scrolling {
   height: 100%;
   overflow: hidden;
@@ -23,7 +22,7 @@ body.stop-scrolling {
   z-index: 10000;
 }
 
-.sweet-alert {
+.sweet-modal {
   $width: 478px;
   $padding: 17px;
 
@@ -40,17 +39,40 @@ body.stop-scrolling {
   margin-left: -($width/2 + $padding);
   margin-top: -200px;
 
-  overflow: hidden;
+  overflow: scroll;
   display: none;
   z-index: 99999;
 
-  @media all and (max-width: 540px) {
-    width: auto;
-    margin-left: 0;
-    margin-right: 0;
+  &.small {
+    @media all and (max-width: 540px) {
+      width: auto;
+      margin-left: 0;
+      margin-right: 0;
 
-    left: 15px;
-    right: 15px;
+      left: 15px;
+      right: 15px;
+    }
+  }
+
+  &.medium {
+    @media all and (max-width: 540px) {
+      width: auto;
+      margin-left: 0;
+      margin-right: 0;
+
+      left: 15px;
+      right: 15px;
+    }
+  }
+
+  &.large {
+    width: 90%;
+    height: 86%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 7%;
+    left: 0%;
+    top: 50%;
   }
 
   h2 {
@@ -66,25 +88,7 @@ body.stop-scrolling {
     display: block;
   }
 
-  p {
-    color: #797979;
-    font-size: 16px;
-    text-align: center;
-    font-weight: 300;
-    position: relative;
-    text-align: inherit;
-    float: none;
-    margin: 0;
-    padding: 0;
-    line-height: normal;
-  }
-
-  fieldset {
-    border: none;
-    position: relative;
-  }
-
-  .sa-error-container {
+  .sm-error-container {
     background-color: #f1f1f1;
     margin-left: -17px;
     margin-right: -17px;
@@ -116,7 +120,7 @@ body.stop-scrolling {
     }
   }
 
-  .sa-input-error {
+  .sm-input-error {
     position: absolute;
     top: 29px;
     right: 26px;
@@ -156,52 +160,7 @@ body.stop-scrolling {
     }
   }
 
-  input {
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 3px;
-    border: 1px solid rgb(215, 215, 215);
-    height: 43px;
-    margin-top: 10px;
-    margin-bottom: 17px;
-    font-size: 18px;
-    box-shadow: inset 0px 1px 1px rgba(black, 0.06);
-    padding: 0 12px;
-    display: none;
-    -webkit-transition: all 0.3s;
-    transition: all 0.3s;
-    &:focus {
-      outline: none;
-      box-shadow: 0px 0px 3px rgb(196, 230, 245);
-      border: 1px solid rgb(180, 219, 237);
-      &::-moz-placeholder {
-        transition: opacity 0.3s 0.03s ease;
-        opacity: 0.5;
-      }
-      &:-ms-input-placeholder {
-        transition: opacity 0.3s 0.03s ease;
-        opacity: 0.5;
-      }
-      &::-webkit-input-placeholder {
-        transition: opacity 0.3s 0.03s ease;
-        opacity: 0.5;
-      }
-    }
-    &::-moz-placeholder {
-      color: lighten(#575757, 40);
-    }
-    &:-ms-input-placeholder {
-      color: lighten(#575757, 40);
-    }
-    &::-webkit-input-placeholder {
-      color: lighten(#575757, 40);
-    }
-  }
-  &.show-input input {
-    display: block;
-  }
-
-  .sa-confirm-button-container {
+  .sm-confirm-button-container {
     display: inline-block;
     position: relative;
   }
@@ -284,7 +243,7 @@ body.stop-scrolling {
     padding-bottom: 40px;
   }
 
-  .sa-icon {
+  .sm-icon {
     $red:     #F27474;
     $orange:  #F8BB86;
     $blue:    #C9DAE1;
@@ -294,198 +253,16 @@ body.stop-scrolling {
     height: 80px;
     border: 4px solid gray;
     -webkit-border-radius: 40px;
-    border-radius: 40px;
-    border-radius: 50%;
+    border: none;
+    border-radius: 0;
     margin: 20px auto;
     padding: 0;
     position: relative;
     box-sizing: content-box;
-
-    &.sa-error {
-      border-color: $red;
-
-      .sa-x-mark {
-        position: relative;
-        display: block;
-      }
-
-      .sa-line {
-        position: absolute;
-        height: 5px;
-        width: 47px;
-        background-color: $red;
-        display: block;
-        top: 37px;
-        border-radius: 2px;
-
-        &.sa-left {
-          -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
-          left: 17px;
-        }
-        &.sa-right {
-          -webkit-transform: rotate(-45deg);
-          transform: rotate(-45deg);
-          right: 16px;
-        }
-      }
-    }
-    &.sa-warning {
-      border-color: $orange;
-
-      .sa-body { // Exclamation mark body
-        position: absolute;
-        width: 5px;
-        height: 47px;
-        left: 50%;
-        top: 10px;
-        -webkit-border-radius: 2px;
-        border-radius: 2px;
-        margin-left: -2px;
-        background-color: $orange;
-      }
-      .sa-dot { // Exclamation mark dot
-        position: absolute;
-        width: 7px;
-        height: 7px;
-        -webkit-border-radius: 50%;
-        border-radius: 50%;
-        margin-left: -3px;
-        left: 50%;
-        bottom: 10px;
-        background-color: $orange;
-      }
-    }
-    &.sa-info {
-      border-color: $blue;
-
-      &::before { // i-letter body
-        content: "";
-        position: absolute;
-        width: 5px;
-        height: 29px;
-        left: 50%;
-        bottom: 17px;
-        border-radius: 2px;
-        margin-left: -2px;
-        background-color: $blue;
-      }
-      &::after { // i-letter dot
-        content: "";
-        position: absolute;
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        margin-left: -3px;
-        top: 19px;
-        background-color: $blue;
-      }
-    }
-    &.sa-success {
-      border-color: $green;
-
-      &::before, &::after { // Emulate moving circular line
-        content: '';
-        -webkit-border-radius: 40px;
-        border-radius: 40px;
-        border-radius: 50%;
-        position: absolute;
-        width: 60px;
-        height: 120px;
-        background: white;
-        -webkit-transform: rotate(45deg);
-        transform: rotate(45deg);
-      }
-      &::before {
-        -webkit-border-radius: 120px 0 0 120px;
-        border-radius: 120px 0 0 120px;
-        top: -7px;
-        left: -33px;
-
-         -webkit-transform: rotate(-45deg);
-        transform: rotate(-45deg);
-        -webkit-transform-origin: 60px 60px;
-        transform-origin: 60px 60px;
-      }
-      &::after {
-        -webkit-border-radius: 0 120px 120px 0;
-        border-radius: 0 120px 120px 0;
-        top: -11px;
-        left: 30px;
-
-        -webkit-transform: rotate(-45deg);
-        transform: rotate(-45deg);
-        -webkit-transform-origin: 0px 60px;
-        transform-origin: 0px 60px;
-      }
-
-      .sa-placeholder { // Ring
-        width: 80px;
-        height: 80px;
-        border: 4px solid rgba($green, 0.2);
-        -webkit-border-radius: 40px;
-        border-radius: 40px;
-        border-radius: 50%;
-        box-sizing: content-box;
-
-        position: absolute;
-        left: -4px;
-        top: -4px;
-        z-index: 2;
-      }
-
-      .sa-fix { // Hide corners left from animation
-        width: 5px;
-        height: 90px;
-        background-color: white;
-
-        position: absolute;
-        left: 28px;
-        top: 8px;
-        z-index: 1;
-
-        -webkit-transform: rotate(-45deg);
-        transform: rotate(-45deg);
-      }
-
-      .sa-line {
-        height: 5px;
-        background-color: $green;
-        display: block;
-        border-radius: 2px;
-
-        position: absolute;
-        z-index: 2;
-
-        &.sa-tip {
-          width: 25px;
-
-          left: 14px;
-          top: 46px;
-
-          -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
-        }
-        &.sa-long {
-          width: 47px;
-
-          right: 8px;
-          top: 38px;
-
-          -webkit-transform: rotate(-45deg);
-          transform: rotate(-45deg);
-        }
-      }
-    }
-    &.sa-custom {
-      background-size: contain;
-      border-radius: 0;
-      border: none;
-      background-position: center center;
-      background-repeat: no-repeat;
-    }
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
   }
-
 }
 
 /*
@@ -508,13 +285,13 @@ body.stop-scrolling {
 
 // Modal animation
 
-@include keyframes(showSweetAlert) {
+@include keyframes(showSweetModal) {
   0%    { transform: scale(0.7);  -webkit-transform: scale(0.7);  }
   45%   { transform: scale(1.05); -webkit-transform: scale(1.05); }
   80%   { transform: scale(0.95); -webkit-transform: scale(0.95);   }
   100%  { transform: scale(1);    -webkit-transform: scale(1);    }
 }
-@include keyframes(hideSweetAlert) {
+@include keyframes(hideSweetModal) {
   0%    { transform: scale(1);    -webkit-transform: scale(1);    }
   100%  { transform: scale(0.5);  -webkit-transform: scale(0.5);  }
 }
@@ -537,9 +314,9 @@ body.stop-scrolling {
   100%  { top: 70%; }
 }
 
-.showSweetAlert {
+.showSweetModal {
   &[data-animation=pop] {
-    @include animation('showSweetAlert 0.3s');
+    @include animation('showSweetModal 0.3s');
   }
   &[data-animation=none] {
     @include animation('none');
@@ -552,9 +329,9 @@ body.stop-scrolling {
   }
 }
 
-.hideSweetAlert {
+.hideSweetModal {
   &[data-animation=pop] {
-    @include animation('hideSweetAlert 0.2s');
+    @include animation('hideSweetModal 0.2s');
   }
   &[data-animation=none] {
     @include animation('none');
@@ -597,7 +374,7 @@ body.stop-scrolling {
 .animateSuccessLong {
   @include animation('animateSuccessLong 0.75s');
 }
-.sa-icon.sa-success.animate::after {
+.sm-icon.animate::after {
   @include animation('rotatePlaceholder 4.25s ease-in');
 }
 

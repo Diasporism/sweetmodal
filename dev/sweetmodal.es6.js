@@ -1,4 +1,10 @@
-// SweetAlert
+// SweetModal
+// 2015 - Logan Sears
+// github.com/diasporism/sweetmodal
+//
+// Based on
+//
+// SweetAlert by
 // 2014-2015 (c) - Tristan Edwards
 // github.com/t4t5/sweetalert
 
@@ -8,7 +14,7 @@
 import {
   hasClass, addClass, removeClass,
   escapeHtml,
-  _show, show, _hide, hide,
+  show, hide, remove,
   isDescendant,
   getTopMargin,
   fadeIn, fadeOut,
@@ -28,10 +34,10 @@ import {
 } from './modules/utils';
 
 /*
- *  Handle sweetAlert's DOM elements
+ *  Handle sweetModal's DOM elements
  */
 import {
-  sweetAlertInitialize,
+  sweetModalInitialize,
   getModal,
   getOverlay,
   getInput,
@@ -39,7 +45,7 @@ import {
   openModal,
   resetInput,
   fixVerticalPosition
-} from './modules/handle-swal-dom';
+} from './modules/handle-swmd-dom';
 
 
 // Handle button events and keyboard events
@@ -60,12 +66,12 @@ var lastFocusedButton;
 
 
 /*
- * Global sweetAlert function
+ * Global sweetModal function
  * (this is what the user calls)
  */
-var sweetAlert, swal;
+var sweetModal, swmd;
 
-sweetAlert = swal = function() {
+sweetModal = swmd = function() {
   var customizations = arguments[0];
 
   addClass(document.body, 'stop-scrolling');
@@ -82,22 +88,13 @@ sweetAlert = swal = function() {
   }
 
   if (customizations === undefined) {
-    logStr('SweetAlert expects at least 1 attribute!');
+    logStr('SweetModal expects at least 1 attribute!');
     return false;
   }
 
   var params = extend({}, defaultParams);
 
   switch (typeof customizations) {
-
-    // Ex: swal("Hello", "Just testing", "info");
-    case 'string':
-      params.title = customizations;
-      params.text  = arguments[1] || '';
-      params.type  = arguments[2] || '';
-      break;
-
-    // Ex: swal({ title:"Hello", text: "Just testing", type: "info" });
     case 'object':
       if (customizations.title === undefined) {
         logStr('Missing "title" argument!');
@@ -116,13 +113,11 @@ sweetAlert = swal = function() {
 
       // Callback function when clicking on "OK"/"Cancel"
       params.doneFunction = arguments[1] || null;
-
       break;
 
     default:
-      logStr('Unexpected type of argument! Expected "string" or "object", got ' + typeof customizations);
+      logStr('Unexpected type of argument! Expected "object", got ' + typeof customizations);
       return false;
-
   }
 
   setParameters(params);
@@ -131,7 +126,6 @@ sweetAlert = swal = function() {
 
   // Modal interactions
   var modal = getModal();
-
 
   /*
    * Make sure all modal buttons respond to all events
@@ -166,18 +160,17 @@ sweetAlert = swal = function() {
       }
     }, 0);
   };
-  
-  // Show alert with enabled buttons always
-  swal.enableButtons();
-};
 
+  // Show alert with enabled buttons always
+  swmd.enableButtons();
+};
 
 
 /*
  * Set default params for each popup
  * @param {Object} userParams
  */
-sweetAlert.setDefaults = swal.setDefaults = function(userParams) {
+sweetModal.setDefaults = swmd.setDefaults = function(userParams) {
   if (!userParams) {
     throw new Error('userParams is required');
   }
@@ -188,40 +181,20 @@ sweetAlert.setDefaults = swal.setDefaults = function(userParams) {
   extend(defaultParams, userParams);
 };
 
-
 /*
  * Animation when closing modal
  */
-sweetAlert.close = swal.close = function() {
+sweetModal.close = swmd.close = function() {
   var modal = getModal();
 
   fadeOut(getOverlay(), 5);
   fadeOut(modal, 5);
-  removeClass(modal, 'showSweetAlert');
-  addClass(modal, 'hideSweetAlert');
-  removeClass(modal, 'visible');
+  removeClass(modal, 'showSweetModal');
+  addClass(modal, 'hideSweetModal');
 
-  /*
-   * Reset icon animations
-   */
-  var $successIcon = modal.querySelector('.sa-icon.sa-success');
-  removeClass($successIcon, 'animate');
-  removeClass($successIcon.querySelector('.sa-tip'), 'animateSuccessTip');
-  removeClass($successIcon.querySelector('.sa-long'), 'animateSuccessLong');
-
-  var $errorIcon = modal.querySelector('.sa-icon.sa-error');
-  removeClass($errorIcon, 'animateErrorIcon');
-  removeClass($errorIcon.querySelector('.sa-x-mark'), 'animateXMark');
-
-  var $warningIcon = modal.querySelector('.sa-icon.sa-warning');
-  removeClass($warningIcon, 'pulseWarning');
-  removeClass($warningIcon.querySelector('.sa-body'), 'pulseWarningIns');
-  removeClass($warningIcon.querySelector('.sa-dot'), 'pulseWarningIns');
-
-  // Reset custom class (delay so that UI changes aren't visible)
   setTimeout(function() {
-    var customClass = modal.getAttribute('data-custom-class');
-    removeClass(modal, customClass);
+    var overlay = document.body.querySelector('.sweet-overlay');
+    remove([modal, overlay]);
   }, 300);
 
   // Make page scrollable again
@@ -238,34 +211,30 @@ sweetAlert.close = swal.close = function() {
   return true;
 };
 
-
 /*
  * Validation of the input field is done by user
  * If something is wrong => call showInputError with errorMessage
  */
-sweetAlert.showInputError = swal.showInputError = function(errorMessage) {
+sweetModal.showInputError = swmd.showInputError = function(errorMessage) {
   var modal = getModal();
 
-  var $errorIcon = modal.querySelector('.sa-input-error');
+  var $errorIcon = modal.querySelector('.sm-input-error');
   addClass($errorIcon, 'show');
 
-  var $errorContainer = modal.querySelector('.sa-error-container');
+  var $errorContainer = modal.querySelector('.sm-error-container');
   addClass($errorContainer, 'show');
 
   $errorContainer.querySelector('p').innerHTML = errorMessage;
 
   setTimeout(function() {
-    sweetAlert.enableButtons();
+    sweetModal.enableButtons();
   }, 1);
-
-  modal.querySelector('input').focus();
 };
-
 
 /*
  * Reset input error DOM elements
  */
-sweetAlert.resetInputError = swal.resetInputError = function(event) {
+sweetModal.resetInputError = swmd.resetInputError = function(event) {
   // If press enter => ignore
   if (event && event.keyCode === 13) {
     return false;
@@ -273,17 +242,17 @@ sweetAlert.resetInputError = swal.resetInputError = function(event) {
 
   var $modal = getModal();
 
-  var $errorIcon = $modal.querySelector('.sa-input-error');
+  var $errorIcon = $modal.querySelector('.sm-input-error');
   removeClass($errorIcon, 'show');
 
-  var $errorContainer = $modal.querySelector('.sa-error-container');
+  var $errorContainer = $modal.querySelector('.sm-error-container');
   removeClass($errorContainer, 'show');
 };
 
 /*
  * Disable confirm and cancel buttons
  */
-sweetAlert.disableButtons = swal.disableButtons = function(event) {
+sweetModal.disableButtons = swmd.disableButtons = function(event) {
   var modal = getModal();
   var $confirmButton = modal.querySelector('button.confirm');
   var $cancelButton = modal.querySelector('button.cancel');
@@ -294,7 +263,7 @@ sweetAlert.disableButtons = swal.disableButtons = function(event) {
 /*
  * Enable confirm and cancel buttons
  */
-sweetAlert.enableButtons = swal.enableButtons = function(event) {
+sweetModal.enableButtons = swmd.enableButtons = function(event) {
   var modal = getModal();
   var $confirmButton = modal.querySelector('button.confirm');
   var $cancelButton = modal.querySelector('button.cancel');
@@ -304,8 +273,8 @@ sweetAlert.enableButtons = swal.enableButtons = function(event) {
 
 if (typeof window !== 'undefined') {
   // The 'handle-click' module requires
-  // that 'sweetAlert' was set as global.
-  window.sweetAlert = window.swal = sweetAlert;
+  // that 'sweetModal' was set as global.
+  window.sweetModal = window.swmd = sweetModal;
 } else {
-  logStr('SweetAlert is a frontend module!');
+  logStr('SweetModal is a frontend module!');
 }

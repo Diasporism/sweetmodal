@@ -25,7 +25,7 @@
 
 <!-- What does it do? -->
 <h3>So... What does it do?</h3>
-<p>Here’s a comparison of a standard error message. The first one uses the built-in <strong>alert</strong>-function, while the second is using <strong>sweetAlert</strong>.</p>
+<p>Here’s a comparison of a standard error message. The first one uses the built-in <strong>alert</strong>-function, while the second is using <strong>sweetModal</strong>.</p>
 
 <div class="showcase normal">
 	<h4>Normal alert</h4>
@@ -44,7 +44,7 @@
 	<button>Show error message</button>
 
 	<h5>Code:</h5>
-	<pre><span class="attr">sweetAlert</span>(<span class="str">"Oops..."</span>, <span class="str">"Something went wrong!"</span>, <span class="str">"error"</span>);</pre>
+	<pre><span class="attr">sweetModal</span>(<span class="str">"Oops..."</span>, <span class="str">"Something went wrong!"</span>, <span class="str">"error"</span>);</pre>
 </div>
 
 <p>Pretty cool huh? SweetAlert automatically centers itself on the page and looks great no matter if you're using a desktop computer, mobile or tablet. It's even highly customizeable, as you can see below!</p>
@@ -53,7 +53,7 @@
 <!-- Examples -->
 <h3>More examples</h3>
 
-<p class="center">In these examples, we're using the shorthand function <strong>swal</strong> to call sweetAlert.</p>
+<p class="center">In these examples, we're using the shorthand function <strong>swmd</strong> to call sweetModal.</p>
 
 <ul class="examples">
 
@@ -62,7 +62,7 @@
 			<p>A basic message</p>
 			<button>Try me!</button>
 		</div>
-		<pre><span class="attr">swal</span>(<span class="str">"Here's a message!"</span>)</pre>
+		<pre><span class="attr">swmd</span>(<span class="str">"Here's a message!"</span>)</pre>
 	</li>
 
 	<li class="title-text">
@@ -70,7 +70,7 @@
 			<p>A title with a text under</p>
 			<button>Try me!</button>
 		</div>
-		<pre><span class="attr">swal</span>(<span class="str">"Here's a message!"</span>, <span class="str">"It's pretty, isn't it?"</span>)</pre>
+		<pre><span class="attr">swmd</span>(<span class="str">"Here's a message!"</span>, <span class="str">"It's pretty, isn't it?"</span>)</pre>
 	</li>
 
 	<li class="success">
@@ -78,7 +78,7 @@
 			<p>A success message!</p>
 			<button>Try me!</button>
 		</div>
-		<pre><span class="attr">swal</span>(<span class="str">"Good job!"</span>, <span class="str">"You clicked the button!"</span>, <span class="str">"success"</span>)</pre>
+		<pre><span class="attr">swmd</span>(<span class="str">"Good job!"</span>, <span class="str">"You clicked the button!"</span>, <span class="str">"success"</span>)</pre>
 	</li>
 
 	<li class="warning confirm">
@@ -86,7 +86,7 @@
 			<p>A warning message, with a function attached to the "Confirm"-button...</p>
 			<button>Try me!</button>
 		</div>
-		<pre><span class="attr">swal</span>({
+		<pre><span class="attr">swmd</span>({
 &nbsp;&nbsp;title: <span class="str">"Are you sure?"</span>,
 &nbsp;&nbsp;text: <span class="str">"You will not be able to recover this imaginary file!"</span>,
 &nbsp;&nbsp;type: <span class="str">"warning"</span>,
@@ -96,7 +96,7 @@
 &nbsp;&nbsp;closeOnConfirm: <span class="val">false</span>
 },
 <span class="func"><i>function</i></span>(){
-&nbsp;&nbsp;<span class="attr">swal</span>(<span class="str">"Deleted!"</span>, <span class="str">"Your imaginary file has been deleted."</span>, <span class="str">"success"</span>);
+&nbsp;&nbsp;<span class="attr">swmd</span>(<span class="str">"Deleted!"</span>, <span class="str">"Your imaginary file has been deleted."</span>, <span class="str">"success"</span>);
 });</pre>
 	</li>
 
@@ -105,7 +105,7 @@
 			<p>... and by passing a parameter, you can execute something else for "Cancel".</p>
 			<button>Try me!</button>
 		</div>
-		<pre><span class="attr">swal</span>({
+		<pre><span class="attr">swmd</span>({
 &nbsp;&nbsp;title: <span class="str">"Are you sure?"</span>,
 &nbsp;&nbsp;text: <span class="str">"You will not be able to recover this imaginary file!"</span>,
 &nbsp;&nbsp;type: <span class="str">"warning"</span>,
@@ -118,9 +118,9 @@
 },
 <span class="func"><i>function</i></span>(isConfirm){
 &nbsp;&nbsp;<span class="tag">if</span> (isConfirm) {
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="attr">swal</span>(<span class="str">"Deleted!"</span>, <span class="str">"Your imaginary file has been deleted."</span>, <span class="str">"success"</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="attr">swmd</span>(<span class="str">"Deleted!"</span>, <span class="str">"Your imaginary file has been deleted."</span>, <span class="str">"success"</span>);
 &nbsp;&nbsp;} <span class="tag">else</span> {
-	&nbsp;&nbsp;&nbsp;&nbsp;<span class="attr">swal</span>(<span class="str">"Cancelled"</span>, <span class="str">"Your imaginary file is safe :)"</span>, <span class="str">"error"</span>);
+	&nbsp;&nbsp;&nbsp;&nbsp;<span class="attr">swmd</span>(<span class="str">"Cancelled"</span>, <span class="str">"Your imaginary file is safe :)"</span>, <span class="str">"error"</span>);
 &nbsp;&nbsp;}
 });</pre>
 	</li>
@@ -130,7 +130,7 @@
 			<p>A message with a custom icon</p>
 			<button>Try me!</button>
 		</div>
-		<pre><span class="attr">swal</span>({
+		<pre><span class="attr">swmd</span>({
 &nbsp;&nbsp;title: <span class="str">"Sweet!"</span>,
 &nbsp;&nbsp;text: <span class="str">"Here's a custom image."</span>,
 &nbsp;&nbsp;imageUrl: <span class="str">"images/thumbs-up.jpg"</span>
@@ -142,7 +142,7 @@
 			<p>An HTML message</p>
 			<button>Try me!</button>
 		</div>
-		<pre><span class="attr">swal</span>({
+		<pre><span class="attr">swmd</span>({
 &nbsp;&nbsp;title: <span class="str">"HTML &lt;small&gt;Title&lt;/small&gt;!"</span>,
 &nbsp;&nbsp;text: <span class="str">"A custom &lt;span style="color:#F8BB86"&gt;html&lt;span&gt; message."</span>,
 &nbsp;&nbsp;html: <span class="val">true</span>
@@ -154,7 +154,7 @@
 			<p>A message with auto close timer</p>
 			<button>Try me!</button>
 		</div>
-		<pre><span class="attr">swal</span>({
+		<pre><span class="attr">swmd</span>({
 &nbsp;&nbsp;title: <span class="str">"Auto close alert!"</span>,
 &nbsp;&nbsp;text: <span class="str">"I will close in 2 seconds."</span>,
 &nbsp;&nbsp;timer: <span class="val">2000</span>,
@@ -168,7 +168,7 @@
 			<p>A replacement for the "prompt" function</p>
 			<button>Try me!</button>
 		</div>
-		<pre><span class="attr">swal</span>({
+		<pre><span class="attr">swmd</span>({
 &nbsp;&nbsp;title: <span class="str">"An input!"</span>,
 &nbsp;&nbsp;text: <span class="str">"Write something interesting:"</span>,
 &nbsp;&nbsp;type: <span class="str">"input"</span>,
@@ -181,11 +181,11 @@
 &nbsp;&nbsp;<span class="tag">if</span> (inputValue <span class="tag">===</span> <span class="val">false</span>) <span class="tag">return</span> <span class="val">false</span>;
 &nbsp;&nbsp;
 &nbsp;&nbsp;<span class="tag">if</span> (inputValue <span class="tag">===</span> <span class="str">""</span>) {
-&nbsp;&nbsp;&nbsp;&nbsp;swal<span class="tag">.</span><span class="attr">showInputError</span>(<span class="str">"You need to write something!"</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;swmd<span class="tag">.</span><span class="attr">showInputError</span>(<span class="str">"You need to write something!"</span>);
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">return</span> <span class="val">false</span>
 &nbsp;&nbsp;}
 &nbsp;&nbsp;
-&nbsp;&nbsp;<span class="attr">swal</span>(<span class="str">"Nice!"</span>, <span class="str">"You wrote: "</span> + inputValue, <span class="str">"success"</span>);
+&nbsp;&nbsp;<span class="attr">swmd</span>(<span class="str">"Nice!"</span>, <span class="str">"You wrote: "</span> + inputValue, <span class="str">"success"</span>);
 });</pre>
 	</li>
 
@@ -194,7 +194,7 @@
 			<p>With a loader (for AJAX request for example)</p>
 			<button>Try me!</button>
 		</div>
-		<pre><span class="attr">swal</span>({
+		<pre><span class="attr">swmd</span>({
 &nbsp;&nbsp;title: <span class="str">"Ajax request example"</span>,
 &nbsp;&nbsp;text: <span class="str">"Submit to run ajax request"</span>,
 &nbsp;&nbsp;type: <span class="str">"info"</span>,
@@ -204,7 +204,7 @@
 },
 <span class="func"><i>function</i></span>(){
 &nbsp;&nbsp;<span class="attr">setTimeout</span>(<span class="func"><i>function</i></span>(){
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="attr">swal</span>(<span class="str">"Ajax request finished!"</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="attr">swmd</span>(<span class="str">"Ajax request finished!"</span>);
 &nbsp;&nbsp;}, <span class="val">2000</span>);
 });</pre>
 	</li>
@@ -234,7 +234,7 @@
 	<pre class="center">$ npm install sweetalert</pre>
 </div>
 
-<p class="center"><b>Method 3:</b> Download the sweetAlert <strong>CSS</strong> and <strong>JavaScript</strong> files.</p>
+<p class="center"><b>Method 3:</b> Download the sweetModal <strong>CSS</strong> and <strong>JavaScript</strong> files.</p>
 
 <a class="button" href="https://github.com/t4t5/sweetalert/archive/master.zip" download>Download files</a>
 
@@ -246,8 +246,8 @@
 	</li>
 
 	<li>
-		<p>Call the sweetAlert-function after the page has loaded</p>
-		<pre><span class="attr">swal</span>({
+		<p>Call the sweetModal-function after the page has loaded</p>
+		<pre><span class="attr">swmd</span>({
 &nbsp;&nbsp;title: <span class="str">"Error!"</span>,
 &nbsp;&nbsp;text: <span class="str">"Here's my error message!"</span>,
 &nbsp;&nbsp;type: <span class="str">"error"</span>,
@@ -262,7 +262,7 @@
 <!-- Configuration -->
 <h3>Configuration</h3>
 
-<p class="center">Here are the keys that you can use if you pass an object into sweetAlert:</p>
+<p class="center">Here are the keys that you can use if you pass an object into sweetModal:</p>
 
 <table>
 	<tr class="titles">
@@ -408,22 +408,22 @@
 	</tr>
 	<tr>
 		<td>setDefaults</td>
-		<td><i>swal.setDefaults({ confirmButtonColor: '#0000' });</i></td>
+		<td><i>swmd.setDefaults({ confirmButtonColor: '#0000' });</i></td>
 		<td>If you end up using a lot of the same settings when calling SweetAlert, you can use setDefaults at the start of your program to set them once and for all!</td>
 	</tr>
 	<tr>
 		<td>close</td>
-		<td><i>swal.close();</i></td>
+		<td><i>swmd.close();</i></td>
 		<td>Close the currently open SweetAlert programatically.</td>
 	</tr>
 	<tr>
 		<td>showInputError</td>
-		<td><i>swal.showInputError("Invalid email!");</i></td>
+		<td><i>swmd.showInputError("Invalid email!");</i></td>
 		<td>Show an error message after validating the input field, if the user's data is bad</td>
 	</tr>
 	<tr>
 		<td>enableButtons, disableButtons</td>
-		<td><i>swal.disableButtons();</i></td>
+		<td><i>swmd.disableButtons();</i></td>
 		<td>Disable or enable the user to click on the cancel and confirm buttons.</td>
 	</tr>
 </table>
@@ -452,15 +452,15 @@ document.querySelector('.showcase.normal button').onclick = function(){
 };
 
 document.querySelector('.showcase.sweet button').onclick = function(){
-	swal("Oops...", "Something went wrong!", "error");
+	swmd("Oops...", "Something went wrong!", "error");
 };
 
 document.querySelector('ul.examples li.message button').onclick = function(){
-	swal("Here's a message!");
+	swmd("Here's a message!");
 };
 
 document.querySelector('ul.examples li.timer button').onclick = function(){
-	swal({
+	swmd({
 		title: "Auto close alert!",
 		text: "I will close in 2 seconds.",
 		timer: 2000,
@@ -469,15 +469,15 @@ document.querySelector('ul.examples li.timer button').onclick = function(){
 };
 
 document.querySelector('ul.examples li.title-text button').onclick = function(){
-	swal("Here's a message!", "It's pretty, isn't it?");
+	swmd("Here's a message!", "It's pretty, isn't it?");
 };
 
 document.querySelector('ul.examples li.success button').onclick = function(){
-	swal("Good job!", "You clicked the button!", "success");
+	swmd("Good job!", "You clicked the button!", "success");
 };
 
 document.querySelector('ul.examples li.warning.confirm button').onclick = function(){
-	swal({
+	swmd({
 		title: "Are you sure?",
 		text: "You will not be able to recover this imaginary file!",
 		type: "warning",
@@ -487,12 +487,12 @@ document.querySelector('ul.examples li.warning.confirm button').onclick = functi
 		closeOnConfirm: false
 	},
 	function(){
-		swal("Deleted!", "Your imaginary file has been deleted!", "success");
+		swmd("Deleted!", "Your imaginary file has been deleted!", "success");
 	});
 };
 
 document.querySelector('ul.examples li.warning.cancel button').onclick = function(){
-	swal({
+	swmd({
 		title: "Are you sure?",
 		text: "You will not be able to recover this imaginary file!",
 		type: "warning",
@@ -505,15 +505,15 @@ document.querySelector('ul.examples li.warning.cancel button').onclick = functio
 	},
 	function(isConfirm){
     if (isConfirm){
-      swal("Deleted!", "Your imaginary file has been deleted!", "success");
+      swmd("Deleted!", "Your imaginary file has been deleted!", "success");
     } else {
-      swal("Cancelled", "Your imaginary file is safe :)", "error");
+      swmd("Cancelled", "Your imaginary file is safe :)", "error");
     }
 	});
 };
 
 document.querySelector('ul.examples li.custom-icon button').onclick = function(){
-	swal({
+	swmd({
 		title: "Sweet!",
 		text: "Here's a custom image.",
 		imageUrl: 'example/images/thumbs-up.jpg'
@@ -521,7 +521,7 @@ document.querySelector('ul.examples li.custom-icon button').onclick = function()
 };
 
 document.querySelector('ul.examples li.message-html button').onclick = function(){
-	swal({
+	swmd({
 		title: "HTML <small>Title</small>!",
 		text: 'A custom <span style="color:#F8BB86">html<span> message.',
 		html: true
@@ -529,7 +529,7 @@ document.querySelector('ul.examples li.message-html button').onclick = function(
 };
 
 document.querySelector('ul.examples li.input button').onclick = function(){
-	swal({
+	swmd({
 		title: "An input!",
 		text: 'Write something interesting:',
 		type: 'input',
@@ -542,17 +542,17 @@ document.querySelector('ul.examples li.input button').onclick = function(){
 		if (inputValue === false) return false;
 
 		if (inputValue === "") {
-			swal.showInputError("You need to write something!");
+			swmd.showInputError("You need to write something!");
 			return false;
 		}
-    
-		swal("Nice!", 'You wrote: ' + inputValue, "success");
+
+		swmd("Nice!", 'You wrote: ' + inputValue, "success");
 
 	});
 };
 
 document.querySelector('ul.examples li.theme button').onclick = function() {
-	swal({
+	swmd({
 		title: "Themes!",
 		text: "Here's the Twitter theme for SweetAlert!",
 		confirmButtonText: "Cool!",
@@ -561,7 +561,7 @@ document.querySelector('ul.examples li.theme button').onclick = function() {
 };
 
 document.querySelector('ul.examples li.ajax button').onclick = function() {
-  swal({
+  swmd({
     title: 'Ajax request example',
     text: 'Submit to run ajax request',
     type: 'info',
@@ -570,7 +570,7 @@ document.querySelector('ul.examples li.ajax button').onclick = function() {
     showLoaderOnConfirm: true,
   }, function(){
     setTimeout(function() {
-      swal('Ajax request finished!');
+      swmd('Ajax request finished!');
     }, 2000);
   });
 };
